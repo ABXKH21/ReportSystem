@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using ReportSystem.Constants
+
+@model ReportSystem.Models.Delivery
+@{
+    ViewData["Title"] = "Details";
+   //Layout = "~/Views/Shared/_Layout3.cshtml";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<div class="container  my-3 border">
+    <p>
+        @ViewBag.ErrorMessage
+    </p>
+    <h1 class="text-center">تفاصيل  نموذج التسليم </h1>
+    <hr />
+
+    <table class="table">
+        <tr>
+            <th>اسم الموظف </th>
+            <td>@Html.DisplayFor(model => model.Employee.EmployeeName)</td>
+        </tr>
+        <tr>
+            <th>جهه العمل </th>
+            <td>@Html.DisplayFor(model => model.Employee.Employer)</td>
+        </tr>
+        <tr>
+            <th>الرقم الوظيفي </th>
+            <td>@Html.DisplayFor(model => model.Employee.JobID)</td>
+        </tr>
+        <tr>
+            <th>رقم الهاتف</th>
+            <td>@Html.DisplayFor(model => model.Employee.Phone)</td>
+        </tr>
+        <tr>
+            <th>لون السياره</th>
+            <td>@Html.DisplayFor(model => model.CarColor) </td>
+        </tr>
+        <tr>
+            <th>موديل السياره</th>
+            <td>@Html.DisplayFor(model => model.CarModel) </td>
+        </tr>
+        <tr>
+            <th>نوع السياره </th>
+            <td>@Html.DisplayFor(model => model.CarType) </td>
+        </tr>
+        <tr>
+            <th>رقم اللوحه</th>
+            <td>@Html.DisplayFor(model => model.PlateNumber) </td>
+        </tr>
+
+    </table>
+    <div class="text-center">
+        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Losts.Edit)).Result.Succeeded)
+        {
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">تعديل</a>
+        }
+        <a class="btn btn-danger" asp-action="Index">رجوع</a>
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+

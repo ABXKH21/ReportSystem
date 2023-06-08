@@ -1,0 +1,111 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using ReportSystem.Constants
+
+@model ReportSystem.Models.Lost
+@{
+    ViewData["Title"] = "Details";
+
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<div class="container  my-3 border">
+    <p>
+        @ViewBag.ErrorMessage
+    </p>
+    <h1 class="text-center">تفاصيل  نموذج مفقودات </h1>
+    <hr />
+
+    <table class="table">
+        <tr>
+          
+            <th> اسم المبلغ </th>
+            <td>@Html.DisplayFor(model => model.Informer.NameInformer)</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+   
+            <th>رقم الهوية </th>
+            <td>@Html.DisplayFor(model => model.Informer.NationalIdentificationId)</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>رقم الجوال </th>
+            <td>@Html.DisplayFor(model => model.Informer.Phone_Number)</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>الموضوع</th>
+            <td>@Html.DisplayFor(model => model.Subject) </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>الوصف </th>
+            <td>@Html.DisplayFor(model => model.Description) </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>مكان الفقدان؟ </th>
+            <td>@Html.DisplayFor(model => model.PlaceLost) </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>العنوان</th>
+            <td>@Html.DisplayFor(model => model.Address) </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th> الكلية</th>
+            <td>@Html.DisplayFor(model => model.CollageName) </td>
+            <th>القسم </th>
+            <td>@Html.DisplayFor(model => model.Department) </td>
+        </tr>
+        <tr>
+            <th>الجنسيه </th>
+            <td>@Html.DisplayFor(model => model.Nationalities.NationalityArName) </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <th>الرقم الجامعي |الرقم الوظيفي </th>
+            <td>@Html.DisplayFor(model => model.Job_UniversityID) </td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <th>التاريخ </th>
+            <td>@Html.DisplayFor(model => model.OpenDate) </td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <th>الوقت </th>
+            <td>@Html.DisplayFor(model => model.OpenTime) </td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+    <div class="text-center">
+        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Losts.Edit)).Result.Succeeded)
+        {
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">تعديل</a>
+        }
+        <a class="btn btn-danger" asp-action="Index">رجوع</a>
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+

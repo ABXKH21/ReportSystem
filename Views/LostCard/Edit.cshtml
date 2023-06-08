@@ -1,0 +1,68 @@
+﻿@model ReportSystem.Models.LostCardEmployee
+@{
+   //Layout = "~/Views/Shared/_Layout3.cshtml";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    ViewData["Title"] = "Edit";
+}
+
+<h3 class="text-center">تعديل طلب فقدان بطاقه الموظف</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form asp-action="Edit" method="post">
+            
+                <div class="mb-3 col-md-12">
+                    <label asp-for="Employee.EmployeeName" class="control-label font-weight-bold">أسم الموظف</label>
+                    <input asp-for="Employee.EmployeeName" class="form-control" />
+                    <span asp-validation-for="Employee.EmployeeName" class="text-danger"></span>
+                </div>
+
+
+                <hr />
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label asp-for="Employee.JobID" class="control-label  font-weight-bold"> الرقم الوظيفي</label>
+                        <input asp-for="Employee.JobID" class="form-control"  required/>                        
+                        <span asp-validation-for="Employee.JobID" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label asp-for="Employee.Employer" class="control-label  font-weight-bold">جهه العمل</label>
+                        <input asp-for="Employee.Employer" class="form-control" required/>
+                        <span asp-validation-for="Employee.Employer" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label asp-for="Employee.Phone" class="control-label  font-weight-bold">رقم الجوال</label>
+                        <input type="tel" id="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" asp-for="Employee.Phone" class="form-control" required/>                        
+                        <span asp-validation-for="Employee.Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr />
+                <div class="mb-3 col-md-12">
+                    <label asp-for="Reason" class="control-label  font-weight-bold">سبب فقدان البطاقه</label>
+                    <input asp-for="Reason" class="form-control" required/>
+                    <span asp-validation-for="Reason" class="text-danger"></span>
+                </div>
+            <hr />
+            <div class="row m-3">
+                <input type="submit" value="أحفظ التعديل" class="btn btn-primary" style="padding-left:35px ; padding-right:35px" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="text-start">
+    <a asp-action="Index">Back to List</a>
+    <br />
+    <br />
+    <br />
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

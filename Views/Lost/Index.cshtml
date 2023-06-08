@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using ReportSystem.Constants
+
+@model IEnumerable<ReportSystem.Models.Lost>
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="container">
+
+    <div class="row m-2">
+        <div class="col-8">
+            @using (Html.BeginForm("Index", "Lost", FormMethod.Get))
+            {
+                <b>بحث بواسطه: اسم المبلغ </b>
+                @Html.TextBox("Search") <input type="submit" value="بحث" /> <br />
+            }
+        </div>
+        <div class="col-4">
+            @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Losts.Create)).Result.Succeeded)
+            {
+                <a asp-action="Create" class="btn btn-primary text-center">انشاء نموذج مفقودات</a>
+            }
+
+        </div>
+    </div>
+    <br />
+
+    <table class="table table-active table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    اسم المبلغ
+                </th>
+                <th>
+                    الموضوع
+                </th>
+                <th>
+                    الوصف
+                </th>              
+                <th class="text-start"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Informer.NameInformer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>                 
+                    <td class="text-start">
+                           @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Losts.Edit)).Result.Succeeded)
+                        {
+                        <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">تعديل</a>
+                        }
+                        
+                        <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">التفاصيل</a>
+                       
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

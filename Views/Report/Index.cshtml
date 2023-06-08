@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using ReportSystem.Constants
+@model IEnumerable<ReportSystem.Models.Report>
+@{
+   
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<div class="container">
+
+    <div class="row m-2">
+        <div class="col-8">
+            @using (Html.BeginForm("Index", "Report", FormMethod.Get))
+            {
+               
+                <b>بحث بواسطه:اسم المبلغ</b>
+               
+                   <input type="hidden"  id="searchBy"  name="searchBy" value="InformantName" />
+                @Html.TextBox("Search") <input type="submit" value="بحث" /> <br />
+            }
+        </div>
+        <div class="col-4">
+            @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Report.Create)).Result.Succeeded)
+            {
+                <a asp-action="Create" class="btn btn-primary text-center">انشاء تقرير</a>
+            }
+        </div>
+
+    </div>
+    <br />
+
+    <table class="table table-active table-striped table-hover">
+        <thead>
+            <tr>
+                <th>                  
+                    رقم التقرير
+                </th>
+                <th>
+                    <!--@Html.DisplayNameFor(model => model.CreationReportDate)-->
+                    تاريخ الانشاء
+                </th>
+                <th>
+                    <!--@Html.DisplayNameFor(model => model.CreationReportTime)-->
+                    الوقت
+                </th>
+
+                <th>
+                    أسم المبلغ
+                </th>
+                <th class="text-start"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReportID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationReportDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationReportTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InformantName)
+                    </td>
+
+                    <td class="text-start">
+                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Report.Edit)).Result.Succeeded)
+                        {
+                            <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.ReportID">تعديل</a>
+                        }
+                        <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.ReportID">التفاصيل</a>
+
+                       
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

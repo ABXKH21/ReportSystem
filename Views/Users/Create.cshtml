@@ -1,0 +1,74 @@
+﻿@model ReportSystem.ViewModels.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="container">
+    <h3 class="text-center m-2">Create a new user</h3>
+    <hr />
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:")
+    }
+     <div class="row">
+
+        <div class="col-sm-8">
+
+    @using (Html.BeginForm("Create", "Users", FormMethod.Post))
+    {
+        <div class="mb-3">
+            @Html.LabelFor(user => user.UserName)
+            @Html.TextBoxFor(user=> user.UserName)
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(user => user.Email)
+            @Html.TextBoxFor(user=> user.Email)
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(user=> user.Phone)
+            @Html.EditorFor(user=> user.Phone)
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(user=> user.Password)
+            @Html.EditorFor(user=> user.Password)
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(user=> user.ConfirmPassword)
+            @Html.EditorFor(user=> user.ConfirmPassword)
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Register" class="btn btn-primary text-center"/>
+        </div>
+    }
+
+     </div>
+        <div class="col-sm-4">
+            <img src="~/logo.png" />
+        </div>
+    </div>
+
+
+
+    <div class="text-start">
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    <br />
+    <br />
+    <br />
+</div>
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
+<script type="text/javascript">
+    var inputs = $('input, textarea, select')
+            .not(':input[type=button], :input[type=submit], :input[type=reset]');
+    inputs.addClass('form-control');
+</script>
+
+}

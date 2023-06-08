@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using ReportSystem.Constants
+
+@model ReportSystem.Models.Report
+@{
+    ViewData["Title"] = "Details";
+
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<div class="container  my-3 border">
+    <p>
+        @ViewBag.ErrorMessage
+    </p>
+    <h1 class="text-center">تفاصيل التقرير</h1>
+    <hr />
+
+    <table class="table">
+        <tr>
+            <th> رقم التقرير </th>
+            <td>@Html.DisplayFor(model => model.ReportID)</td>
+        </tr>
+        <tr>
+            <th>تاريخ انشاء التقرير </th>
+            <td>@Html.DisplayFor(model => model.CreationReportDate) </td>
+        </tr>
+        <tr>
+            <th>وقت انشاء التقرير </th>
+            <td>@Html.DisplayFor(model => model.CreationReportTime) </td>
+        </tr>
+        <tr>
+            <th>اسم المبلغ </th>
+            <td>@Html.DisplayFor(model => model.InformantName) </td>
+        </tr>
+        <tr>
+            <th>الفرع </th>
+            <td>@Html.DisplayFor(model => model.Districts.DistrictArName) </td>
+        </tr>
+        <tr>
+            <th>رقم المبنى</th>
+            <td>@Html.DisplayFor(model => model.Bulding) </td>
+        </tr>
+        <tr>
+            <th>رقم الهوية </th>
+            <td>@Html.DisplayFor(model => model.InformantID) </td>
+        </tr>
+        <tr>
+            <th>اسم المبلغ </th>
+            <td>@Html.DisplayFor(model => model.InformantName) </td>
+        </tr>
+        <tr>
+            <th>رقم الهاتف </th>
+            <td>@Html.DisplayFor(model => model.Mobile) </td>
+        </tr>
+
+        <tr>
+            <th>الجنس </th>
+            <td>@Html.DisplayFor(model => model.Gender) </td>
+        </tr>
+        <tr>
+            <th>حالة التقرير</th>
+            <td>@Html.DisplayFor(model => model.Status) </td>
+        </tr>
+        <tr>
+            <th>مختصر التقرير</th>
+            <td>@Html.DisplayFor(model => model.Summary) </td>
+        </tr>
+        <tr>
+            <th>تاريخ اغلاق التقرير </th>
+            <td>@Html.DisplayFor(model => model.ClosedDate) </td>
+        </tr>
+        <tr>
+            <th>منشئ التقرير</th>
+            <td>@Html.DisplayFor(model => model.CreatorUserame) </td>
+        </tr>
+           <tr>
+            <th>الاجراء المتخذ </th>
+            <td>@Html.DisplayFor(model => model.ProcedureTypes.ProcedureTypeName) </td>
+        </tr>
+        <tr>
+            <th>سبب الحادثة </th>
+            <td>@Html.DisplayFor(model => model.AccidentCause) </td>
+        </tr>
+        <tr>
+            <th>وصف الموقع</th>
+            <td>@Html.DisplayFor(model => model.LocationDescriptin) </td>
+        </tr>
+        <tr>
+            <th> الجنسية </th>
+            <td>@Html.DisplayFor(model => model.Nationalities.NationalityArName)</td>
+        </tr>
+    </table>
+    <div class="text-center">
+        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Report.Edit)).Result.Succeeded)
+        {
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ReportID">تعديل</a>
+        }
+
+        <a class="btn btn-danger" asp-action="Index">رجوع</a>
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+

@@ -1,0 +1,88 @@
+﻿@model ReportSystem.Models.Delivery
+@{
+  //Layout = "~/Views/Shared/_Layout3.cshtml";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    ViewData["Title"] = "Edit";
+}
+
+<h3 class="text-center">تعديل نموذج التسليم</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form asp-action="Edit" method="post">
+            
+               <label class="control-label text-primary font-weight-bold">بيانات الموظف</label>
+               
+                <hr />
+                <div class="mb-3 col-md-12">
+                    <label asp-for="Employee.EmployeeName" class="control-label  font-weight-bold">اسم الموظف</label>
+                    <input type="text" asp-for="Employee.EmployeeName" class="form-control" />
+                    <span asp-validation-for="Employee.EmployeeName"></span>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label asp-for="Employee.JobID" class="control-label  font-weight-bold">الرقم الوظيفي </label>
+                        <input type="text" asp-for="Employee.JobID" class="form-control" />
+                        <span asp-validation-for="Employee.JobID" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label asp-for="Employee.Employer" class="control-label  font-weight-bold">جهه العمل</label>
+                        <input type="text" asp-for="Employee.Employer" class="form-control" />
+                        <span asp-validation-for="Employee.Employer" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label asp-for="Employee.Phone" class="control-label  font-weight-bold">رقم الهاتف</label>
+                        <input type="tel" id="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" asp-for="Employee.Phone" class="form-control" />
+                        <span asp-validation-for="Employee.Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <label class="control-label text-success font-weight-bold">بيانات الموظف</label>
+                <hr />
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label asp-for="CarType" class="control-label  font-weight-bold">نوع السياره</label>
+                        <input asp-for="CarType" class="form-control" />
+                        <span asp-validation-for="CarType" class="text-danger"></span>
+                    </div>
+                      <div class="mb-3 col-md-6">
+                        <label asp-for="CarModel" class="control-label  font-weight-bold">موديل السياره</label>
+                        <input asp-for="CarModel" class="form-control" />
+                        <span asp-validation-for="CarModel" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label asp-for="PlateNumber" class="control-label  font-weight-bold">رقم اللوحه</label>
+                        <input asp-for="PlateNumber" class="form-control" />
+                        <span asp-validation-for="PlateNumber" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label asp-for="CarColor" class="control-label  font-weight-bold">لون السياره</label>
+                        <input asp-for="CarColor" class="form-control" />
+                        <span asp-validation-for="CarColor" class="text-danger"></span>
+                    </div>                                   
+                </div>
+                <hr />
+            <hr />
+            <div class="row m-3">
+                <input type="submit" value="أحفظ التعديل" class="btn btn-primary" style="padding-left:35px ; padding-right:35px" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="text-start">
+    <a asp-action="Index">Back to List</a>
+    <br />
+    <br />
+    <br />
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

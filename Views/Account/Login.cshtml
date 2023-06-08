@@ -1,0 +1,53 @@
+﻿@model ReportSystem.ViewModels.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:")
+    }
+    <h2>تسجيل الدخول</h2>
+    <hr />
+
+    <div class="row">
+
+        <div class="col-sm-8">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    اسم المستخدم
+                    @Html.TextBoxFor(m => m.UserName)
+                </div>
+
+
+                <div class="mb-3">
+                    كلمة المرور
+                    @Html.EditorFor(m => m.Password)
+                </div>
+
+                <div class="mb-3">
+                    <input type="submit" value="Log in" class="btn btn-primary text-center" />
+                </div>
+
+            }           
+        </div>
+        <div class="col-sm-4">
+            <img src="~/logo.png" />
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script type="text/javascript">
+    var inputs = $('input, textarea, select')
+            .not(':input[type=button], :input[type=submit], :input[type=reset]');
+    inputs.addClass('form-control');
+</script>
+
+}

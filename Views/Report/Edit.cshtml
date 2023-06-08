@@ -1,0 +1,265 @@
+﻿@model ReportSystem.ViewModels.ReportViewModel.CreationReport
+@{
+    //Layout = "~/Views/Shared/_Layout3.cshtml";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    ViewData["Title"] = "Edit";
+}
+
+<h3 class="text-center">تعديل التقرير</h3>
+<hr />
+<p>
+    @ViewBag.ErrorMessage
+</p>
+
+<div class="row">    
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="ReportID"/>
+            <div class="row">
+                @*<div class="mb-3 col-md-4">
+                    <label asp-for="ReportNumber" class="control-label font-weight-bold">رقم التقرير</label>
+                    <input asp-for="ReportNumber" class="form-control" />
+                    <span asp-validation-for="ReportNumber" class="text-danger"></span>
+                    </div>*@
+                <div class="mb-3 col-md-4">
+                    <label asp-for="CreationReportDate" class="control-label  font-weight-bold">تاريخ انشاء التقرير</label>
+                    <input asp-for="CreationReportDate" type="date" class="form-control" required />
+                    <span asp-validation-for="CreationReportDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label asp-for="CreationReportTime" class="control-label  font-weight-bold">وقت انشاء التقرير</label>
+                    <input asp-for="CreationReportTime" type="time" class="form-control" required />
+                    <span asp-validation-for="CreationReportTime" class="text-danger"></span>
+                </div>
+                    <div class="mb-3 col-md-4">
+                        <label asp-for="CreatorUserame" class="control-label  font-weight-bold"></label>
+                        <input asp-for="CreatorUserame" class="form-control" value="@User.Identity.Name!" disabled />
+                        <span asp-validation-for="CreatorUserame" class="text-danger"></span>
+                    </div>
+            </div>
+            <hr />
+
+            <hr />
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label asp-for="InformantName" class="control-label  font-weight-bold">اسم المبلغ</label>
+                    <input type="text" placeholder="اسم المبلغ" asp-for="InformantName" class="form-control" required />
+                    <span asp-validation-for="InformantName"></span>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label asp-for="InformantID" class="control-label  font-weight-bold">رقم الهوية</label>
+                    <input type="text" placeholder="رقم هوية المبلغ" asp-for="InformantID" class="form-control" required />
+                    <span asp-validation-for="InformantID" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label asp-for="Mobile" class="control-label  font-weight-bold">رقم الهاتف</label>
+                    <input type="tel" id="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" asp-for="Mobile" class="form-control" required />
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label asp-for="Gender" class="control-label  font-weight-bold">الجنس</label>
+                    <select asp-for="Gender" class="form-control">
+                        <option>اختر الجنس</option>
+                        <option value="@Gender.Male">ذكر</option>
+                        <option value="@Gender.Female">أنثى</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label asp-for="NationalitiesID" class="control-label font-weight-bold">الجنسية</label>
+                    <select asp-validation-for="NationalitiesID" name="NationalitiesID" id="NationalitiesID" class="form-control">
+                        <option>اختر الجنسية</option>
+                        @foreach (var item in Model.Nationalities)
+                        {
+                            <option value="@item.NationalityID">@item.NationalityArName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <hr />
+
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label asp-for="DistrictsID" class="control-label font-weight-bold">الفرع</label>
+                    <select asp-validation-for="DistrictsID" name="DistrictsID" id="district" class="form-control">
+                        <option>اختر الفرع</option>
+                        @foreach (var item in Model.Districts)
+                        {
+                            <option value="@item.DistrictsID">@item.DistrictArName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label asp-for="Bulding" class="control-label  font-weight-bold">رقم المبنى</label>
+                    <input asp-for="Bulding" placeholder="ادخل رقم المبنى" class="form-control" required />
+                    <span asp-validation-for="Bulding" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="mb-3 col-md-12">
+                <label asp-for="Summary" class="control-label  font-weight-bold">مختصر التقرير</label>
+                <input asp-for="Summary" class="form-control" required />
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label asp-for="AccidentCause" class="control-label  font-weight-bold">سبب الحادثة</label>
+                    <input asp-for="AccidentCause" class="form-control" required />
+                    <span asp-validation-for="AccidentCause" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label asp-for="LocationDescriptin" class="control-label  font-weight-bold">وصف الموقع</label>
+                    <input asp-for="LocationDescriptin" class="form-control" required />
+                    <span asp-validation-for="LocationDescriptin" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="mb-3 col-md-8">
+                    <label asp-for="ProceduerTypeName" class="control-label  font-weight-bold">الاجراء المتخذ السابق</label>
+                    <input asp-for="ProceduerTypeName" class="form-control" disabled />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label asp-for="MainCategoriesID" class="control-label  font-weight-bold">التصنيف الرئيسي</label>
+                    <select name="MainCategoriesID" id="mainCat" class="form-control" asp-items="ViewBag.MainCategoriesID">
+                        <option> اختر التصنيف الرئيسي</option>
+                        @foreach (var item in Model.MainCategories)
+                        {
+                            <option value="@item.MainCategoryID">@item.CategoryArName</option>
+                        }
+                    </select>
+                    @*  <select asp-for=" Lost.NationalitiesID"  class="form-control"
+                        asp-items="@(new SelectList(Model.NationalitiesList,"NationalityID","NationalityArName"))" >
+                        </select>
+                    *@
+                </div>
+
+                <div class="mb-3 col-md-4">
+                    <label asp-for="SubCategoriesID" class="control-label font-weight-bold">التصنيف الفرعي</label>
+                    <select name="SubCategoriesID" id="subCat" class="form-control"></select>
+
+                    @*<select name="SubCategoriesID" id="subCat" class="form-control" asp-items="ViewBag.SubCategories">
+                        <option> اختر التصنيف الرئيسي</option>
+                        @foreach (var item in Model.SubCategories)
+                        {
+                        <option value="@item.SubCategoriesID">@item.SubCategoryArName</option>
+                        }
+                        </select>*@
+
+                </div>
+
+                <div class="mb-3 col-md-4">
+                    <label class="control-label font-weight-bold">الاجراء المتخذ  </label>
+                    <select asp-for="ProceduerTypeID" name="ProceduerTypeID" id="procedureId" class="form-control">
+                    </select>
+                </div>
+
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ClosedDate" class="control-label  font-weight-bold">تاريخ اغلاق التقرير</label>
+                        <input type="date" asp-for="ClosedDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                        <span asp-validation-for="ClosedDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label  font-weight-bold">حالة التقرير</label>
+                        <select asp-for="Status" class="form-control">
+                            <option>اختر حالة التقرير</option>
+                            <option value="1">مكتمل</option>
+                            <option value="2">غير مكتمل</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <input type="submit" value="أحفظ التعديل" class="btn btn-primary"/>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-start">
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+   
+    <br />
+    <br />
+    <br />
+
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script>
+
+    //*********************************script for main category, sub Category and procedure type********************************************
+    $(document).ready(function () {
+
+        $('#mainCat').on('change', function () {
+            var mainCatId = $('#mainCat').val()
+            $.get("/Report/GetSubCat?mainCatId=" + mainCatId, function (data) {
+                /*console.log(data)*/
+                var getCat = JSON.stringify(data)
+                //console.log(getCat);
+                var categoryId = JSON.parse(getCat)
+                //console.log(categoryId)
+                $('#subCat').html("")
+                $('#subCat').append("<option>اخترالتصنيف الفرعي</option>")
+                $.each(categoryId, function (i, item) {
+                    $('#subCat').append(new Option(item.subCategoryArName, item.subCategoriesID,));
+                    /*console.log(item);*/
+                });
+
+                $('#subCat').on('change', function () {
+                    var subCatId = $('#subCat').val()
+                    $.get("/Report/GetProcedureType?subCatId=" + subCatId, function (data) {
+                        console.log(data)
+                        var getSubCat = JSON.stringify(data)
+                        //console.log(getCat);
+                        var SubCategoriesID = JSON.parse(getSubCat)
+                        //console.log(categoryId)
+                        $('#procedureId').html("")
+                        $('#procedureId').append("<option>اختر الاجراء المتخذ</option>")
+                        $.each(SubCategoriesID, function (j, item) {
+                            $('#procedureId').append(new Option(item.procedureTypeName, item.procedureTypeID));
+                            /*console.log(item);*/
+                        });
+                    });
+                });
+                $('#mainCat').on('change', function () {
+                    $('#subCat').empty();
+                    $('#procedureId').empty();
+                });
+            });
+
+        });
+    });
+    // ************************************end of script ************************************
+
+
+</script>
+}

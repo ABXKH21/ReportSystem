@@ -1,0 +1,135 @@
+﻿@model ReportSystem.ViewModels.LostViewModel.CreationLost
+@{
+   //Layout = "~/Views/Shared/_Layout3.cshtml";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    ViewData["Title"] = "Edit";
+}
+
+<h3 class="text-center">تعديل مفقودات</h3>
+<hr />
+
+<p>
+    @ViewBag.ErrorMessage
+</p>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Lost.Id" />
+            <input type="hidden" asp-for="Lost.InformerId" />
+
+
+            <label class="control-label text-primary font-weight-bold">بيانات مقدم الطلب</label>
+
+            <hr />
+            <div class="mb-3 col-md-12">
+                <label asp-for="Lost.Informer.NameInformer" class="control-label  font-weight-bold">الأسم</label>
+                <input type="text" asp-for="Lost.Informer.NameInformer" class="form-control" />
+                <span asp-validation-for="Lost.Informer.NameInformer"></span>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label asp-for="Lost.Job_UniversityID" class="control-label  font-weight-bold">الرقم الجامعي/الوظيفي</label>
+                    <input type="text" asp-for="Lost.Job_UniversityID " class="form-control" />
+                    <span asp-validation-for="Lost.Job_UniversityID" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-md-4">
+                    <label asp-for="Lost.CollageName" class="control-label  font-weight-bold">الكلية </label>
+                    <input type="text" asp-for="Lost.CollageName " class="form-control" />
+                    <span asp-validation-for="Lost.CollageName" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label asp-for="Lost.Department" class="control-label  font-weight-bold">القسم</label>
+                    <input type="text" asp-for="Lost.Department " class="form-control" />
+                    <span asp-validation-for="Lost.Department" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-3">
+                    <label asp-for="Lost.Informer.NationalIdentificationId" class="control-label  font-weight-bold">رقم الهوية</label>
+                    <input type="text" asp-for="Lost.Informer.NationalIdentificationId" class="form-control" />
+                    <span asp-validation-for="Lost.Informer.NationalIdentificationId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-md-3">
+                    <label asp-for="Lost.Informer.Phone_Number" class="control-label  font-weight-bold">رقم الهاتف</label>
+                    <input type="tel" id="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" asp-for="Lost.Informer.Phone_Number" class="form-control" />
+                    <span asp-validation-for="Lost.Informer.Phone_Number" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-md-3">
+                    <label asp-for="Lost.NationalitiesID" class="control-label font-weight-bold">الجنسية</label>
+                    @*<select asp-validation-for="Lost.NationalitiesID" name="Model.Lost.NationalitiesID" id="NationalitiesID" class="form-control">
+                        <option>اختر الجنسية</option>
+                        @foreach (var item in Model.NationalitiesList)
+                        {
+                        <option value="@item.NationalityID">@item.NationalityArName</option>
+                        }
+                        </select>*@
+                    @*   <select class="form-control" asp-for="Lost.NationalitiesID" name="Model.Lost.NationalitiesID"
+                        asp-items="@(new SelectList(Model.NationalitiesList, "NationalityID", "NationalityArName"))">
+                        <option value="">اختر الجنسية</option>
+                        </select>*@
+                    <select asp-for="Lost.NationalitiesID"
+                            asp-items="@(new SelectList(Model.NationalitiesList,"NationalityID","NationalityArName"))">
+                    </select>
+
+                </div>
+
+                <div class="mb-3 col-md-3">
+                    <label asp-for="Lost.Address" class="control-label  font-weight-bold">العنوان </label>
+                    <input type="text" asp-for="Lost.Address " class="form-control" />
+                    <span asp-validation-for="Lost.Address" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <label class="control-label text-success font-weight-bold">مضمون البلاغ؟</label>
+
+            <hr />
+            <div class="mb-3 col-md-12">
+                @*<label asp-for="Lost.Description" class="control-label  font-weight-bold">العنوان </label>*@
+                <input type="text" asp-for="Lost.Description " class="form-control" />
+                <span asp-validation-for="Lost.Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label asp-for="Lost.LostDate" class="control-label  font-weight-bold">تاريخ الفقدان؟</label>
+                    <input asp-for="Lost.LostDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Lost.LostDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-md-8">
+                    <label asp-for="Lost.PlaceLost" class="control-label  font-weight-bold">مكان الفقدان؟ </label>
+                    <input type="text" asp-for="Lost.PlaceLost " class="form-control" />
+                    <span asp-validation-for="Lost.PlaceLost" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row m-3">
+                <input type="submit" value="أحفظ التعديل" class="btn btn-primary" style="padding-left:35px ; padding-right:35px" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="text-start">
+    <a asp-action="Index">Back to List</a>
+    <br />
+    <br />
+    <br />
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

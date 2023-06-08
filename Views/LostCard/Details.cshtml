@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using ReportSystem.Constants
+
+
+@model ReportSystem.Models.LostCardEmployee
+@{
+    ViewData["Title"] = "Details";
+   
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="container  my-3 border">
+    <p>
+        @ViewBag.ErrorMessage
+    </p>
+    <h1 class="text-center">تفاصيل التقرير</h1>
+    <hr />
+
+    <table class="table">
+        <tr>
+            <th>أسم الموظف </th>
+            <td>@Html.DisplayFor(model => model.Employee.EmployeeName)</td>
+        </tr>
+        <tr>
+            <th> الرقم الوظيفي </th>
+            <td>@Html.DisplayFor(model => model.Employee.JobID) </td>
+        </tr>
+        <tr>
+            <th>جهه العمل </th>
+            <td>@Html.DisplayFor(model => model.Employee.Employer) </td>
+        </tr>
+        <tr>
+            <th>رقم الجوال </th>
+            <td>@Html.DisplayFor(model => model.Employee.Phone) </td>
+        </tr>
+        <tr>
+            <th>سبب فقدان البطاقه </th>
+            <td>@Html.DisplayFor(model => model.Reason) </td>
+        </tr>
+
+    </table>
+    <div class="text-center">
+        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.LostCards.Edit)).Result.Succeeded)
+        {
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">تعديل</a>
+        }
+        <a class="btn btn-danger" asp-action="Index">رجوع</a>
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+
